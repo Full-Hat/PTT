@@ -6,5 +6,5 @@ Game "Chess" with default rules for two players, but without some features. Some
 3) There is no сastling 
 
 White team start's, 
-player choose coord of figure and then coord to attack 
+player choose figure coordinates and then the coordinates for the attack  
 Then another player (Dark blue).. 
