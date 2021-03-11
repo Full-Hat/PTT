@@ -57,7 +57,12 @@ namespace Task1
         public static int Main(string[] args)
         {
             Console.Write("Enter the text: ");
-            StringBuilder str = new StringBuilder(Console.ReadLine());
+            StringBuilder str;
+
+            while((str = new StringBuilder(Console.ReadLine())).Length == 0)
+            {
+                Console.Write("Input string is empty, try again: ");
+            }
 
             Console.WriteLine(ReverseWords(str, SplitString(str)));
 
