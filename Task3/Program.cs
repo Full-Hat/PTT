@@ -1,74 +1,71 @@
 ﻿using System;
+using System.Globalization;
 
-namespace Task2
+namespace Task3
 {
     class Program
     {
-        public static double StringToDecimal(string str)
+        private static void PrintAllLanguages()
         {
-            int i = 0;
-            bool isNegative = false;
+            Console.WriteLine("Program support:\n");
 
-            if(str.Length == 0)
+            CultureInfo[] cultures = CultureInfo.GetCultures(CultureTypes.AllCultures);
+
+            for(int i = 1; i < cultures.Length; ++i)
             {
-                throw new Exception("Empty string, can't convert");
+
+                Console.Write("#" + i + ": " + cultures[i] + "-");
+                Console.WriteLine(cultures[i]);
             }
-            if(str[i] == '-')
+        }
+        public static void printMonths(CultureInfo culture)
+        {
+            for (int i = 1; i <= 12; i++)
             {
-                isNegative = true;
-                ++i;
+                DateTime now = new DateTime(2010, i, 1);
+                Console.WriteLine(now.ToString("MMMM", culture));
+                Console.WriteLine();
             }
-            if (str[i] == '+')
+        }
+        
+        public static bool setLanguage(out CultureInfo culture, string languageCode)
+        {
+            if(languageCode.Length == 0)
             {
-                ++i;
-            }
-
-            double result = 0.0;
-            for (; str[i] != '.'; ++i)
-            {
-                result = result * 10.0 + (str[i] - '0');
-
-                if (!char.IsDigit(str[i]) || i == str.Length - 1)
-                {
-                    throw new Exception("Invalid data to convertation");
-                }
-
-                if (i > 308)
-                {
-                    throw new Exception("Can't convert string, too big value");
-                }
+                culture = null;
+                return false;
             }
 
-            ++i;
-            int afterPointCount = 1;
-            for (; i < str.Length; ++i)
+            try
             {
-                result += (str[i] - '0') / (Math.Pow(10.0, afterPointCount++));
-
-                if (!char.IsDigit(str[i]))
-                {
-                    throw new Exception("Invalid data to convertation");
-                }
+                culture =  new CultureInfo(languageCode);
+            }
+            catch
+            {
+                culture = null;
+                return false;
             }
 
-            result = isNegative ? -result : result;
-
-            return result;
+            return true;
         }
 
         public static int Main(string[] args)
         {
-            Console.Write("Enter something: ");
-            string strNumber = Console.ReadLine();
+            PrintAllLanguages();
 
-            try
+            Console.Write("\nEnter language code: ");
+            string languageCode = Console.ReadLine();
+            CultureInfo culture = new CultureInfo("");
+
+            while (!setLanguage(out culture, languageCode))
             {
-                Console.WriteLine($"Double: {StringToDecimal(strNumber)}");
+                Console.Write("There is no so lang. code, try another one: ");
+                languageCode = Console.ReadLine();
             }
-            catch(Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+
+            Console.WriteLine("\n");
+
+            printMonths(culture);
 
             return 0;
         }
