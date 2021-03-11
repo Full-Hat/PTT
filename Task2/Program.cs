@@ -58,7 +58,7 @@ namespace Task2
 
         public static int Main(string[] args)
         {
-            Console.Write("Enter something: ");
+            Console.Write("Enter string to convert: ");
             string strNumber = Console.ReadLine();
 
             try
