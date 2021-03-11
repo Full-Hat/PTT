@@ -1,57 +1,73 @@
-﻿// globalization 
-// string to double 
-
-using System;
-using System.Globalization;
+﻿using System;
 
 namespace Task2
 {
     class Program
     {
-        private static void DisplaySupportedLanguages()
+        public static double StringToDecimal(string str)
         {
-            Console.WriteLine("Supported languages:\n");
+            int i = 0;
+            bool isNegative = false;
 
-            CultureInfo[] cultures = CultureInfo.GetCultures(CultureTypes.AllCultures);
-
-            foreach (CultureInfo culture in cultures)
+            if(str.Length == 0)
             {
-                Console.Write(culture.Name + " - ");
-                Console.WriteLine(culture.EnglishName);
+                throw new Exception("Empty string, can't convert");
             }
+            if(str[i] == '-')
+            {
+                isNegative = true;
+                ++i;
+            }
+            if (str[i] == '+')
+            {
+                ++i;
+            }
+
+            double result = 0.0;
+            for (; str[i] != '.'; ++i)
+            {
+                result = result * 10.0 + (str[i] - '0');
+
+                if (!char.IsDigit(str[i]) || i == str.Length - 1)
+                {
+                    throw new Exception("Invalid data to convertation");
+                }
+
+                if (i > 308)
+                {
+                    throw new Exception("Can't convert string, too big value");
+                }
+            }
+
+            ++i;
+            int afterPointCount = 1;
+            for (; i < str.Length; ++i)
+            {
+                result += (str[i] - '0') / (Math.Pow(10.0, afterPointCount++));
+
+                if (!char.IsDigit(str[i]))
+                {
+                    throw new Exception("Invalid data to convertation");
+                }
+            }
+
+            result = isNegative ? -result : result;
+
+            return result;
         }
 
         public static int Main(string[] args)
         {
-            DisplaySupportedLanguages();
+            Console.Write("Enter something: ");
+            string strNumber = Console.ReadLine();
 
-            Console.Write("\nEnter the language: ");
-            string lang = Console.ReadLine();
-            CultureInfo culture = new CultureInfo("");
-            bool error = false;
-
-            do
+            try
             {
-                try
-                {
-                    culture = new CultureInfo(lang);
-                    error = false;
-                }
-                catch
-                {
-                    Console.Write("Input error. Please enter the language again: ");
-                    lang = Console.ReadLine();
-                    error = true;
-                }
-            } while (error);
-
-            Console.WriteLine("\n");
-
-            for (int i = 1; i <= 12; i++)
+                Console.WriteLine($"Double: {StringToDecimal(strNumber)}");
+            }
+            catch(Exception ex)
             {
-                DateTime now = new DateTime(2007, i, 1);
-                Console.WriteLine(now.ToString("MMMM", culture));
-                Console.WriteLine();
+                Console.WriteLine(ex.Message);
             }
 
             return 0;
