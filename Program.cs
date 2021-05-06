@@ -22,7 +22,7 @@ namespace BigDouble
             RationalNumber r1Parsed = RationalNumber.Parse("1/3");
             Console.WriteLine($"1/3 is equal to {r1Parsed}");
             RationalNumber r1NegativeParsed = RationalNumber.Parse("(-1/3)");
-            Console.WriteLine($"1/3 is equal to {r1NegativeParsed}");
+            Console.WriteLine($"-1/3 is equal to {r1NegativeParsed}");
 
             Console.WriteLine();
 

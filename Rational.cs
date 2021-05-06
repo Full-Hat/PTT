@@ -221,26 +221,23 @@ namespace Rational
         {
             r1.Normalize();
             r2.Normalize();
-            return (double)r1 > (double)r2;
+            return r1.Numerator * r2.Denominator > r2.Numerator * r1.Denominator; 
         }
 
         public static bool operator >(RationalNumber r1, double num)
         {
             r1.Normalize();
-            return (double)r1 > num;
+            return r1.Numerator > num * r1.Denominator;
         }
 
         public static bool operator <(RationalNumber r1, RationalNumber r2)
         {
-            r1.Normalize();
-            r2.Normalize();
-            return (double)r1 < (double)r2;
+            return !(r1 > r2);
         }
 
         public static bool operator <(RationalNumber r1, double num)
         {
-            r1.Normalize();
-            return (double)r1 < num;
+            return !(r1 > num);
         }
 
         public static bool operator ==(RationalNumber r1, RationalNumber r2)
