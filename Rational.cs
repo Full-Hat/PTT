@@ -113,6 +113,7 @@ namespace Rational
             temp.Normalize();
             return temp;
         }
+
         public static RationalNumber operator- (RationalNumber r1, RationalNumber r2)
         {
             long newNum = (r1.IsNegative ? -1 : 1) * r1.Numerator * r2.Denominator - (r2.IsNegative ? -1 : 1) * r2.Numerator * r1.Denominator;
@@ -121,12 +122,14 @@ namespace Rational
             temp.Normalize();
             return temp;
         }
+
         public static RationalNumber operator* (RationalNumber r1, RationalNumber r2)
         {
             RationalNumber temp = new RationalNumber(r1.Numerator * r2.Numerator, r1.Denominator * r2.Denominator, r1.IsNegative ^ r2.IsNegative);
             temp.Normalize();
             return temp;
         }
+
         public static RationalNumber operator/ (RationalNumber r1, RationalNumber r2)
         {
             RationalNumber temp = r1 * new RationalNumber(r2.Denominator, r2.Numerator, r2.IsNegative);
