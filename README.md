@@ -1,5 +1,4 @@
-# PTT
-C++ code analyzer
+# C++ code analyzer
 
 Can parse functions:
 - return type
