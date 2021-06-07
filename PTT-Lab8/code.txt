@@ -1,0 +1,22 @@
+#include <iostream> 
+
+int sum(int a, int b, double t)
+{
+	return 115-12+225;
+}
+
+int main()
+{
+	sum(1, 2);
+	return 150SOMETHING THAT ANALYZER CAN'T ANDERSTAND;
+}
+
+int mama(int a, int b)
+{
+	return 20*(2^2+1);
+}
+
+void very_small_function_name_and_I_lIkE_gOoD_CoDe_StYlE(int a, int b)
+{
+	return 20*(2^2+1);
+}
